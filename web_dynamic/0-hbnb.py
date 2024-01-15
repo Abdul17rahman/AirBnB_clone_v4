@@ -6,6 +6,7 @@ from models import storage
 from models.state import State
 from models.amenity import Amenity
 from models.place import Place
+import uuid
 
 
 app = Flask(__name__)
@@ -96,10 +97,11 @@ def hbnb_filters():
 @app.route('/0-hbnb/', strict_slashes=False)
 def _hbnb():
     """displays hbnb web page"""
+    cache_id = uuid.uuid4()
     states = storage.all(State)
     amenities = storage.all(Amenity)
     places = storage.all(Place)
-    return render_template('0-hbnb.html', states=states, amanities=amenities, places=places)
+    return render_template('0-hbnb.html', cache_id=cache_id, states=states, amenities=amenities, places=places)
 
 
 
